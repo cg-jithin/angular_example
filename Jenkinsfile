@@ -1,25 +1,33 @@
 pipeline {
-  agent {
-    docker { image 'node:latest' }
-  }
+  agent any
+  tools {nodejs "815Node"}
   stages {
-    stage('Install') {
-      steps { sh 'npm install' }
+    stage('INSTALL PACKAGES') {
+      steps {
+        sh "npm install"
+      }
     }
- 
-    stage('Test') {
-      parallel {
-        stage('Static code analysis') {
-            steps { sh 'npm run-script lint' }
-        }
-        stage('Unit tests') {
-            steps { sh 'npm run-script test' }
+    stage('TEST') {
+      steps {
+        echo "insert your testing here"
+      }
+    }
+    stage('BUILD APP') {
+      steps {
+        sh "node_modules/.bin/ng build --prod"
+      }
+    }
+    stage("BUILD DOCKER") {
+      steps {
+        script {
+          dockerImageBuild = docker.build registry + ":latest"
         }
       }
     }
- 
-    stage('Build') {
-      steps { sh 'npm run-script build' }
+    stage("DEPLOY & ACTIVATE") {
+      steps {
+        echo 'this part will differ depending on setup'
+      }
     }
   }
 }
