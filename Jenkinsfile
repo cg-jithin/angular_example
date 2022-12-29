@@ -1,6 +1,5 @@
 pipeline {
   agent any
-  tools {nodejs "815Node"}
   stages {
     stage('INSTALL PACKAGES') {
       steps {
