@@ -3,7 +3,7 @@ pipeline {
   stages {
     stage('Fetch dependencies') {
       agent {
-        docker 'circleci/node:10.0-stretch-browsers'
+        docker 'node:19-alpine3.16'
       }
       steps {
         sh 'npm install'
