@@ -10,4 +10,4 @@ EXPOSE 80
 # COPY dist /var/www
 # COPY --from=node /app/dist/test_app /usr/share/nginx/html
 COPY --from=node /app/dist/test_app /var/www
-COPY config/nginx.conf /etc/nginx/nginx.conf
+# COPY config/nginx.conf /etc/nginx/nginx.conf
