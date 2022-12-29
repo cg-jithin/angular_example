@@ -41,6 +41,7 @@ RUN npm run build --prod
 FROM nginx:latest AS ngi
 # Copying compiled code and nginx config to different folder
 # NOTE: This path may change according to your project's output folder 
+USER root
 COPY --from=build /dist/src/app/dist/test_app /usr/share/nginx/html
 COPY --from=ngi /nginx.conf  /etc/nginx/conf.d/default.conf
 # Exposing a port, here it means that inside the container 
