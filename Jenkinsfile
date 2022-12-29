@@ -6,7 +6,6 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                // sh 'ls'
                 sh 'docker rmi -f ng-docker-app:v1.0.0 || true'
                 sh 'docker build -t ng-docker-app:v1.0.0 -f ./Dockerfile .'
                 sh 'docker stop angular-test || true'
