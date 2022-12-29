@@ -1,10 +1,10 @@
 pipeline {
 	agent none
   stages {
-  	stage('NPM install') {
+  	stage('npm install') {
     	agent {
       	docker {
-        	image 'node'
+        	image 'node:latest'
         }
       }
       steps {
