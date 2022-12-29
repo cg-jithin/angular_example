@@ -2,12 +2,20 @@ pipeline {
   agent {
     docker { image 'node:latest' }
   }
-  stages {
-    stage('Install') {
-      steps { sh 'npm install' }
-    }
-    stage('Build') {
-      steps { sh 'npm run-script build' }
-    }
-  }
+        stage('Run Project') {
+            agent {
+                docker {
+                    image 'yolch/ng-test-build:latest'
+                    reuseNode true
+                }
+            }
+
+            steps {
+                sh '''
+                npm install
+                ng test --browsers ChromeHeadlessCustom --watch false
+                ng build --prod
+                '''
+            }
+        }
 }
