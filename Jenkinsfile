@@ -6,7 +6,7 @@ pipeline {
         docker 'circleci/node:10.0-stretch-browsers'
       }
       steps {
-        sh 'sudo npm install'
+        sh 'npm install'
       }
     }
   }
