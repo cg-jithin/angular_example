@@ -1,11 +1,33 @@
 pipeline {
-    agent { docker { image 'node:16.17.1-alpine' } }
-    stages {
-        stage('build') {
-            steps {
-                sh 'npm install -g @angular/cli'
-                sh 'npm install'
-            }
-        }
+  agent none
+  stages {
+    stage('Fetch dependencies') {
+      agent {
+        docker 'circleci/node:9.3-stretch-browsers'
+      }
+      steps {
+        sh 'yarn'
+        stash includes: 'node_modules/', name: 'node_modules'
+      }
     }
+    stage('Lint') {
+      agent {
+        docker 'circleci/node:9.3-stretch-browsers'
+      }
+      steps {
+        unstash 'node_modules'
+        sh 'yarn lint'
+      }
+    }
+    stage('Compile') {
+      agent {
+        docker 'circleci/node:9.3-stretch-browsers'
+      }
+      steps {
+        unstash 'node_modules'
+        sh 'yarn build:prod'
+        stash includes: 'dist/', name: 'dist'
+      }
+    }
+  }
 }
