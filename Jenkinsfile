@@ -1,15 +1,3 @@
-properties(
-    [
-        [$class: 'BuildDiscarderProperty', strategy:
-          [$class: 'LogRotator', artifactDaysToKeepStr: '14', artifactNumToKeepStr: '5', daysToKeepStr: '30', numToKeepStr: '60']],
-        pipelineTriggers(
-          [
-              pollSCM('H/15 * * * *'),
-              cron('@daily'),
-          ]
-        )
-    ]
-)
 node {
     stage('Checkout') {
         //disable to recycle workspace data to save time/bandwidth
@@ -26,13 +14,6 @@ node {
         withEnv(["NPM_CONFIG_LOGLEVEL=warn"]) {
             sh 'npm install'
         }
-    }
-
-    stage('Test') {
-        withEnv(["CHROME_BIN=/usr/bin/chromium-browser"]) {
-          sh 'ng test --progress=false --watch false'
-        }
-        junit '**/test-results.xml'
     }
 
     stage('Lint') {
