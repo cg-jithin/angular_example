@@ -1,14 +1,11 @@
 pipeline {
-  agent none
-  stages {
-    stage('Fetch dependencies') {
-      agent {
-        docker 'node:19-alpine3.16'
-      }
-      steps {
-        sh 'sudo su'
-        sh 'npm install -f'
-      }
+    agent { dockerfile true }
+    stages {
+        stage('Test') {
+            steps {
+                sh 'node --version'
+                sh 'svn --version'
+            }
+        }
     }
-  }
 }
