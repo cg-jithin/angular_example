@@ -11,7 +11,7 @@ EXPOSE 80
 # COPY --from=node /app/dist/test_app /usr/share/nginx/html
 COPY --from=node /app/dist/test_app /var/www
 
-USER root
-CMD ['docker','build','-t','angular-app:latest','.']
-CMD ['docker','run','-d','-p','1212:80','angular-app:latest']
+# USER root
+# CMD ['docker','build','-t','angular-app:latest','.']
+# CMD ['docker','run','-d','-p','1212:80','angular-app:latest']
 # COPY config/nginx.conf /etc/nginx/nginx.conf
