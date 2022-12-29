@@ -3,9 +3,8 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'node --version'
-                sh 'npm install -g @angular/cli'
-                sh 'npm install'
+                sh 'npm install -g @angular/cli',
+                              sh 'npm install'
             }
         }
     }
