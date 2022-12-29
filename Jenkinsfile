@@ -6,6 +6,7 @@ pipeline {
         docker 'node:19-alpine3.16'
       }
       steps {
+        sh 'sudo su'
         sh 'npm install -f'
       }
     }
